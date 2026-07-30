@@ -1,15 +1,11 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        prevMap = {}
+        pairs = {}
 
-        # n is index, c is value
-        for n, c in enumerate(nums):
-            complement = target - c
+        for i, n in enumerate(nums):
+            diff = target - n
 
-            if complement not in prevMap:
-                prevMap[c] = n
-            else:
-                return [prevMap[complement], n]
-        
-        return []
+            if diff in pairs:
+                return [pairs[diff], i]
             
+            pairs[n] = i        

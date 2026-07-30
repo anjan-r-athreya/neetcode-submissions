@@ -1,13 +1,10 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counts = {}
+        hashmap = defaultdict(int)
         n = len(nums)
 
-        for i in range(n):
-            if nums[i] not in counts:
-                counts[nums[i]] = 1
-            else:
-                counts[nums[i]] += 1
+        for num in nums:
+            hashmap[num] += 1
         
-        sorted_counts = dict(sorted(counts.items()))
-        return list(counts.keys())[len(counts) - k:]
+        sort = list(sorted(hashmap.items(), key=lambda x: x[1], reverse=True))
+        return [item[0] for item in sort[:k]]

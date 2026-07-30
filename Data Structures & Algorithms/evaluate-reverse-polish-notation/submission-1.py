@@ -1,49 +1,21 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        operators = ["+", "-", "*", "/"]
+        n = len(tokens)
 
-        i = 0
-        while i < len(tokens):
-            currRes = 0
-            if tokens[i] == "+":
-                b = stack.pop()
-                a = stack.pop()
-                currRes = a + b
-                stack.append(currRes)
-            elif tokens[i] == "-":
-                b = stack.pop()
-                a = stack.pop()
-                currRes = a - b
-                stack.append(currRes)
-            elif tokens[i] == "*":
-                b = stack.pop()
-                a = stack.pop()
-                currRes = a * b
-                stack.append(currRes)
-            elif tokens[i] == "/":
-                b = stack.pop()
-                a = stack.pop()
-                currRes = int(a / b)
-                stack.append(currRes)
-            else:
+        for i in range(n):
+            if tokens[i].lstrip("-").isnumeric():
                 stack.append(int(tokens[i]))
-            i = i + 1
-        return int(stack[0])
+            else:
+                num2 = stack.pop()
+                num1 = stack.pop()
 
-
-        # i = 0
-        # while tokens[i] not in operators:
-        #     stack.append(tokens[i])
-        #     i += 1
-        # expression = ""
-        
-        # for i in range(len(stack) + 1):
-        #     if i == 1: expression = expression + f"{tokens[i]}
-
-    """
-    0 to 2 to 1 in to expr
-    solve expr -> goes into 0, expr reset
-    0 to 2 to 1 in expr
-    solve expr -> goes into 0, expr reset
-    """
+                if tokens[i] == "+":
+                    stack.append(num1 + num2)
+                elif tokens[i] == "-":
+                    stack.append(num1 - num2)
+                elif tokens[i] == "*":
+                    stack.append(num1 * num2)
+                elif tokens[i] == "/":
+                    stack.append(int(num1 / num2))
+        return stack[-1]

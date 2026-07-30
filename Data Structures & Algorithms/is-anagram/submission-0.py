@@ -1,21 +1,23 @@
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        n, m = len(s), len(t)
+        if len(s) != len(t):
+            return False
 
-        if n != m: return False
+        s_count = {}
+        t_count = {}
 
-        letterS = {}
-        letterT = {}
+        for i in range(len(s)):
+            if s[i] not in s_count:
+                s_count[s[i]] = 1
+            elif s[i] in s_count:
+                s_count[s[i]] += 1
 
-        for i in range(n):
-            if s[i] not in letterS:
-                letterS[s[i]] = 1
-            else:
-                letterS[s[i]] = letterS[s[i]] + 1
+            if t[i] not in t_count:
+                t_count[t[i]] = 1
+            elif t[i] in t_count:
+                t_count[t[i]] += 1
 
-            if t[i] not in letterT:
-                letterT[t[i]] = 1
-            else:
-                letterT[t[i]] = letterT[t[i]] + 1
-            
-        return letterS == letterT
+        if s_count != t_count:
+            return False
+        
+        return True
