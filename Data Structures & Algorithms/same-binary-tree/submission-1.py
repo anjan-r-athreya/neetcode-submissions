@@ -7,7 +7,23 @@
 
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-        if not p and not q: return True
-        if not p or not q: return False
-        if p.val != q.val: return False
-        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        same = True
+        
+        def dfs(p: Optional[TreeNode], q: Optional[TreeNode]):
+            nonlocal same
+
+            if not p and not q:
+                return
+            elif not p or not q:
+                same = False
+                return 
+            
+            if p.val == q.val:
+                dfs(p.left, q.left)
+                dfs(p.right, q.right)
+            elif p.val != q.val:
+                same = False
+                return
+        
+        dfs(p, q)
+        return same
